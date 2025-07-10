@@ -1,0 +1,42 @@
+.navbar {
+  background: #E8EAEC;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center content horizontally */
+  color: white;
+  position: relative; /* For absolute positioning if needed */
+}
+
+.logo {
+  height: 65px;
+  margin-right: auto; /* Pushes logo to left */
+}
+
+.title-container {
+  position: absolute; /* Centers regardless of logo width */
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.dashboard-title {
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.monitoring-badge {
+  background: #F5a83c;
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 1.75rem;
+}
+
+.dashboard-text {
+  font-weight: bold;
+  color: #000000;
+  font-size: 1.75rem;
+}

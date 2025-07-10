@@ -1,0 +1,387 @@
+.app-container {
+  min-height: 100vh;
+  background: #1B9B83;
+}
+
+.dashboard-grid {
+  max-width: 1900px; /* Slightly wider for liquid gauges */
+  margin: 0.5rem auto;
+  padding: 0 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 1.5rem;
+}
+
+.dashboard-card {
+  background: #c5e0db;
+  border-radius: 12px;
+  padding: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.section-title {
+  margin: 1.5rem 0 1rem;
+  font-size: 1.25rem;
+  color: #333;
+  text-align: center;
+}
+
+.complaints-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+/* Recording list styles */
+.separator {
+  border: 0;
+  border-bottom: 3px dotted #000000;
+  width: 250px; /* Shorter width — you can adjust */
+  margin: 0.5rem auto; /* Centers it horizontally */
+  padding-top: 0.25rem;
+}
+
+.recordings-list {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+}
+
+.recording-item {
+  background: #CBFB5D;
+  /* background: #91CAA7; */
+  padding: 0.75rem;
+  color: black;
+  border-radius: 8px;
+  font-size: 1rem;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+  min-width: 0; /* Crucial for grid item sizing */
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  user-select: none;
+  transition: all 0.3s ease;
+}
+
+.recording-item:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  background: #49B16F;
+  color: white;
+}
+
+.recording-item:hover .call-direction,
+.recording-item:hover .duration-container,
+.recording-item:hover .time-container{
+  color: white;
+  font-weight: bold;
+}
+
+.call-direction {
+  color: black;
+}
+
+.recording-item > div {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%; /* Ensure full width usage */
+}
+
+.time-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black;
+  gap: 0.3rem;
+}
+
+.duration-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  color: black;
+}
+
+/* Loading and error states */
+.app-container > div:not(.navbar) {
+  padding: 1rem;
+  text-align: center;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+/* No recordings message */
+.recording-item.empty {
+  text-align: center;
+  padding: 1rem;
+  color: #666;
+  grid-column: 1 / -1;
+}
+
+.icon-bottom {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  margin-top: auto;
+}
+
+/* Recording Count Styles */
+.top {
+  position: relative;  /* Important! */
+  display: flex;
+  flex-direction: row; 
+  width: 100%
+}
+.recording-count {
+  margin-top: 0.25rem;
+  align-self: flex-start;
+  margin: 0 0 1rem 0;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* align spans to the left */
+  background: #2B384B;
+  border-radius: 15%;
+  user-select: none;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  position: relative;
+  overflow: hidden; /* To keep the line inside */
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
+}
+
+.recording-count::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -65%;
+  width: 50%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.15);
+  transform: skewX(-20deg);
+  pointer-events: none;
+  transition: left 0.4s ease;
+}
+
+.recording-count:hover {
+  transform: translate(-5px, -10px) rotate(2deg);
+  filter: brightness(1.1) saturate(1.5);
+}
+
+.recording-count:hover::before {
+  left: 115%;
+}
+
+.count-number {
+  font-family: 'Roboto Condensed', sans-serif;
+  display: block;
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-left: 0.5rem;
+  margin-top: 0.25rem;
+  color: #CBD5E1;
+  line-height: 1;
+  font-family: Calibri, sans-serif;
+}
+
+.count-number2 {
+  display: block;
+  font-size: 5rem;
+  margin-top: 0.25rem;
+  font-weight: bold;
+  margin-left: 0.5rem;
+  margin-top: 0.25rem;
+  color: white;
+  line-height: 1;
+  transition: all 0.3s ease;
+  font-family: Calibri, sans-serif;
+}
+
+.recording-count:hover .count-number2 {
+  transform: scale(1.3);
+}
+
+.count-label {
+  font-size: 1.25rem;
+  color: #CBD5E1;
+  font-weight: bold;
+  margin-right: 0.5rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 1px;
+  font-family: Calibri, sans-serif;
+}
+
+.total-duration{
+  text-align: center;
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* align spans to the left */
+  padding: 0.5rem 0 0 0;
+  margin-bottom: 1rem;
+  background: #2B384B;
+  border-radius: 15%;
+  color: black;
+  user-select: none;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  position: relative;
+  overflow: hidden; /* To keep the line inside */
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
+}
+
+.total-duration::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 110%;
+  width: 50%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.15);
+  transform: skewX(20deg) translateX(0);
+  pointer-events: none;
+  transition: transform 0.6s ease;
+}
+
+.total-duration:hover {
+  transform: translate(5px, -10px) rotate(-2deg);
+  filter: brightness(1.1) saturate(1.5);
+}
+
+.total-duration:hover::before {
+  transform: skewX(20deg) translateX(-350%);
+}
+
+.duration-label{
+  margin-top: 0.25rem;
+  font-size: 1.25rem;
+  color: #CBD5E1;
+  padding: 0 0.5rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-right: 0.5rem;
+  letter-spacing: 1px;
+  font-family: Calibri, sans-serif;
+}
+
+.duration-number{
+  display: block;
+  font-size: 1.25rem;
+  color: #CBD5E1;
+  font-weight: bold;
+  color: CBD5E1;
+  margin-left: 0.5rem;
+  margin-top: 0.25rem;
+  padding: 0.5rem 0 1rem 0;
+  line-height: 1;
+  font-family: Calibri, sans-serif;
+}
+
+.duration-number2 {
+  display: block;
+  font-size: 2.75rem;
+  margin-bottom: 0.5rem;
+  margin-left: 0.25rem;
+  font-weight: bold;
+  color: white;
+  padding: 1rem 0 0 0;
+  line-height: 1;
+  transition: all 0.3s ease;
+  font-family: Calibri, sans-serif;
+}
+
+.total-duration:hover .duration-number2 {
+  transform: translateX(5%) scale(1.1);
+}
+
+/*Line Number Circle */
+  .circle-title {
+    width: 150px; /* Adjust size as needed */
+    height: 70px;
+    background-color: #F4A73C;
+    border-radius: 0 30% 0 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-65%);
+    margin-top: 2.5rem;
+    z-index: 1;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
+    transition: all 0.3s ease;
+  }
+
+  .section-title {
+    font-size: 3rem;
+    color: white;
+    text-align: center;
+  }
+
+  .circle-title:hover {
+    transform: translateX(-65%) translateY(-8px) scale(1.03);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    background: #284952; /* ✅ Slightly darker on hover */
+    user-select: none;
+  }
+
+.circle-title:hover .section-title {
+  color: white;
+}
+
+.last-hour-title {
+  display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-47%);
+    margin-top: 6rem;
+}
+/* -------------------- */
+.complaint-item {
+  background: #91CAA7;
+  padding: 0.5rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+  transition: all 0.3s ease;
+  min-width: 0; /* Prevent flex items from overflowing */
+}
+
+.complaint-item:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  background: #284952; /* ✅ Slightly darker on hover */
+}
+
+.ticket-number {
+  font-weight: bold;
+  color: #434747;
+}
+
+.company-name {
+  color: black;
+  font-weight: bold;
+  margin: 0.25rem 0;
+}
+
+.time {
+  color: #434747;
+  font-size: 0.9rem;
+}
+
+.complaint-item:hover .ticket-number,
+.complaint-item:hover .company-name,
+.complaint-item:hover .time {
+  color: #ffffff;
+}

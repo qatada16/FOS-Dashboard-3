@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+.dashboard-grid {
+  @apply max-w-[1900px] mx-auto my-2 px-4 grid grid-cols-[repeat(auto-fit,minmax(350px,1fr))] gap-6;
+}
