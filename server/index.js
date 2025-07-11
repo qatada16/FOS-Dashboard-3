@@ -76,9 +76,9 @@ app.get('/api/recordings/:prefix', async (req, res) => {
     const seconds = totalSeconds % 60;
 
     if (hours > 0) {
-      totalDurationFormatted = `${hours}H ${minutes}M ${seconds}S`;
+      totalDurationFormatted = `${hours}H ${minutes}M ${seconds}s`;
     } else {
-      totalDurationFormatted = `${minutes}M ${seconds}S`;
+      totalDurationFormatted = `${minutes}M ${seconds}s`;
     }
 
     res.json({
@@ -142,9 +142,9 @@ app.get('/api/recordings/:prefix/last-hour', async (req, res) => {
     const seconds = totalSeconds % 60;
 
     if (hours > 0) {
-      totalDurationFormatted = `${hours}H ${minutes}M ${seconds}S`;
+      totalDurationFormatted = `${hours}H ${minutes}M ${seconds}s`;
     } else {
-      totalDurationFormatted = `${minutes}M ${seconds}S`;
+      totalDurationFormatted = `${minutes}M ${seconds}s`;
     }
 
     res.json({
