@@ -3,12 +3,12 @@ import { FaHourglassHalf } from 'react-icons/fa';
 
 const RecordingsList = ({ recordings }) => {
   return (
-    <div className="w-full flex flex-wrap justify-center gap-4 mt-4">
+    <div className="w-full flex flex-wrap justify-center gap-x-3 gap-y-2 mt-2">
       {recordings.length > 0 ? (
-        recordings.map((recording) => (
+        recordings.slice(0,16).map((recording) => (
           <div 
             key={recording.id} 
-            className="p-1 rounded-lg border-3 border-[#0F676A]/50 bg-white/5 backdrop-blur-sm flex flex-col gap-1 min-w-0 transition-all duration-300 hover:border-[#49B16F] hover:shadow-lg hover:bg-[#284952]/20 hover:scale-[1.08] group select-none"
+            className="p-1 rounded-lg border-3 border-[#0F676A]/50 bg-white/5 backdrop-blur-sm flex flex-col min-w-0 transition-all duration-300 hover:border-[#49B16F] hover:shadow-lg hover:bg-[#284952]/20 hover:scale-[1.08] group select-none"
           >
             {/* First line - Direction icon and duration */}
             <div className="flex justify-center items-center gap-2">

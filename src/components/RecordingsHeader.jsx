@@ -10,7 +10,7 @@ const RecordingsHeader = ({
   return (
     <div className="w-full flex relative gap-35 pb-2">
       {/* Recordings Card */}
-      <div className="flex-1 mt-1 pl-3 pr-1 pt-2 pb-1 bg-gradient-to-br from-[#0F676A] to-[#083D3F] rounded-xl shadow-[0_10px_20px_rgba(0,0,0,0.5)] transition-all duration-400 hover:-translate-y-2 hover:rotate-1 hover:brightness-110 relative overflow-hidden group">
+      <div className="flex-1 mt-1 pl-3 pr-1 pt-2 pb-1 bg-gradient-to-br from-[#0F676A] to-[#083D3F] rounded-xl shadow-[0_8px_12px_rgba(0,0,0,0.3)] transition-all duration-400 hover:-translate-y-2 hover:rotate-1 hover:brightness-110 relative overflow-hidden group">
         <div className="flex justify-between items-start">
           <div>
             <h3 className="text-[#CBD5E1] text-2xl font-bold uppercase tracking-wider mb-1">RECORDINGS</h3>
