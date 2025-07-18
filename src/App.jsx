@@ -42,12 +42,6 @@ export default function App() {
   const [recordingsLoading, setRecordingsLoading] = useState(true);
   const [recordingsError, setRecordingsError] = useState(null);
 
-  // Generate dummy complaints data
-  const [complaints] = useState({
-    submitted: generateComplaints(''),
-    completed: generateComplaints('1'),
-    pending: generateComplaints('2')
-  });
 
   // Initial data load (shows loading screen)
   useEffect(() => {
