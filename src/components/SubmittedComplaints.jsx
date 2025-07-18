@@ -51,39 +51,45 @@ const SubmittedComplaints = ({ dashboardData }) => {
         </div>
 
         {/* Card 2 - COMPLETED TODAY */}
-        <div className="w-full mt-1 p-0 pl-0 pt-1 bg-gradient-to-br from-[#61BA84] to-[#3A8D5C] rounded-xl shadow-[0_5px_12px_rgba(0,0,0,0.3)] transition-all duration-400 hover:-translate-y-2 hover:scale-[1.03] hover:shadow-[0_20px_40px_rgba(0,0,0,0.35)] relative overflow-hidden group">
-          {/* Flex Container for Left and Right */}
-          <div className="flex items-start justify-between">
+        <div className="w-full mt-1 p-0 pl-0 pr-0.5 pt-0.5 bg-gradient-to-br from-[#61BA84] to-[#3A8D5C] rounded-xl shadow-[0_5px_12px_rgba(0,0,0,0.3)] transition-all duration-400 hover:-translate-y-2 hover:scale-[1.03] hover:shadow-[0_20px_40px_rgba(0,0,0,0.35)] relative overflow-hidden group">
+          {/* Outer column container */}
+          <div className="flex flex-col items-center justify-center py-1 px-2">
+            
+            {/* Top: Title */}
+            <h3 className="text-white text-2xl font-extrabold uppercase tracking-widest drop-shadow-lg transition-all duration-300 group-hover:text-[#ffa742] text-center">
+              Completed
+            </h3>
 
-            {/* LEFT SIDE: Title + Count in column */}
-            <div className="ml-0 flex flex-col items-start gap-2">
-              <h3 className="text-white text-2xl pl-0.5 font-extrabold uppercase tracking-widest drop-shadow-lg transition-all duration-300 group-hover:text-[#ffa742] text-left">
-                Completed
-              </h3>
-              <div className="text-left transition-all duration-300 pl-3 group-hover:scale-110">
-                <p className="text-white text-5xl font-extrabold leading-none pl-2 drop-shadow-lg">
+            {/* Row: Count + Closed By */}
+            <div className="flex items-start justify-center gap-4 mt-0.5 w-full px-0.5">
+              
+              {/* Left side: Count */}
+              <div className="flex flex-col items-center transition-all duration-300 group-hover:scale-110">
+                <p className="text-white text-5xl font-extrabold leading-none drop-shadow-lg">
                   {dashboardData.metrics.today_closed}
                 </p>
-                <p className="text-white/80 text-sm font-semibold mt-2 pl-1 tracking-wide">TODAY</p>
+                <p className="text-white/90 text-sm font-semibold mt-2 tracking-wide text-center">
+                  TODAY
+                </p>
               </div>
-            </div>
 
-            {/* RIGHT SIDE: Lodged By Stats */}
-            <div className="m-0 mt-0.5 p-0 space-y-1">
-              {Object.entries(
-                dashboardData.complaints.last_today_closed.reduce((acc, item) => {
-                  acc[item.closed_by] = (acc[item.closed_by] || 0) + 1;
-                  return acc;
-                }, {})
-              ).map(([name, count], i) => (
-                <div key={i} className="flex justify-center text-white font-semibold">
-                  <span className="font-medium uppercase drop-shadow-lg">• {name === 'cs_account' ? 'CS' : name}</span>
-                  <span className="font-semibold drop-shadow-lg">➜ {count}</span>
-                </div>
-              ))}
+              {/* Right side: Closed By Stats */}
+              <div className="flex flex-col justify-start space-y-1">
+                {Object.entries(
+                  dashboardData.complaints.last_today_closed.reduce((acc, item) => {
+                    acc[item.closed_by] = (acc[item.closed_by] || 0) + 1;
+                    return acc;
+                  }, {})
+                ).map(([name, count], i) => (
+                  <div key={i} className="flex justify-start text-white font-semibold">
+                    <span className="font-bold uppercase drop-shadow-lg">• {name === 'cs_account' ? 'CS' : name}</span>
+                    <span className="font-semibold drop-shadow-lg ml-1">➜ {count}</span>
+                  </div>
+                ))}
+              </div>
+
             </div>
           </div>
-
 
           {/* Shine effect */}
           <div className="absolute top-0 left-0 w-full h-1/3 bg-gradient-to-r from-white/10 via-transparent to-white/10 blur-md pointer-events-none transition-all duration-700 group-hover:opacity-70"></div>
