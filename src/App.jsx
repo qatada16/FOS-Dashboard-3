@@ -178,7 +178,7 @@ export default function App() {
       <Navbar />
       {/* <Complaints /> */}
       {/* Upper Section - Existing Dashboard */}
-      <div className="max-w-[2400px] mx-auto my-1 mt-1 px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 select-none">
+      <div className="max-w-[2400px] mx-auto my-4 px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 select-none">
         {/* Submitted Complaints */}
         <SubmittedComplaints
           dashboardData={dashboardData}
@@ -190,7 +190,8 @@ export default function App() {
           most5LaunchesLastWeek={most5LaunchesLastWeek}
         />
         {/* Submitted Since */}
-        <SubmittedSince lastSubmittedComplaints={lastSubmittedComplaints} />
+        <SubmittedSince lastSubmittedComplaints={lastSubmittedComplaints}
+          most5LaunchesLastWeek={most5LaunchesLastWeek}/>
       </div>
 
       {/* Lower Section - Recordings Dashboard */}

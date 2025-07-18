@@ -1,14 +1,25 @@
 import React from 'react';
 
-const SubmittedSince = ({ lastSubmittedComplaints }) => {
+const SubmittedSince = ({ lastSubmittedComplaints, most5LaunchesLastWeek }) => {
   return (
     <div className="bg-[#c5e0db] rounded-xl p-2 shadow-lg flex flex-col items-center">
-      <div className="w-full mt-1 p-4 bg-gradient-to-br from-[#61BA84] to-[#3A8D5C] rounded-xl shadow-[0_10px_20px_rgba(0,0,0,0.3)] transition-all duration-400 hover:-translate-y-2 hover:scale-[1.03] hover:shadow-[0_20px_40px_rgba(0,0,0,0.35)] relative overflow-hidden group">
+      <div className="w-full mt-1 p-2 pt-1 bg-gradient-to-br from-[#61BA84] to-[#3A8D5C] rounded-xl shadow-[0_10px_20px_rgba(0,0,0,0.3)] transition-all duration-400 hover:-translate-y-2 hover:scale-[1.03] hover:shadow-[0_20px_40px_rgba(0,0,0,0.35)] relative overflow-hidden group">
         {/* Title */}
         <div className="flex items-center justify-center mb-2">
           <h3 className="text-white text-2xl font-extrabold uppercase tracking-widest drop-shadow-lg transition-all duration-300 group-hover:text-[#ffa742] text-center">
-            LAST SUBMITTED SINCE
+            Last SUBMITTED SINCE
           </h3>
+        </div>
+        <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 w-full">
+          {most5LaunchesLastWeek.map((item, idx) => (
+            <div
+              key={idx}
+              className="flex items-center gap-1"
+            >
+              <span className="text-white font-bold text-base uppercase drop-shadow-lg">• {item.buyer_name}</span>
+              <span className="text-white font-semibold text-base drop-shadow-lg">➜ {item.total_complaints}</span>
+            </div>
+          ))}
         </div>
 
         {/* Shine effect */}
@@ -56,14 +67,11 @@ const SubmittedSince = ({ lastSubmittedComplaints }) => {
                   className="group min-w-[140px] max-w-[180px] pr-0.5 pl-2 rounded-lg border-3 border-[#0F676A]/50 bg-white/5 backdrop-blur-sm flex flex-col transition-all duration-300
                   hover:border-[#49B16F] hover:shadow-lg hover:bg-[#284952]/20 hover:scale-[1.08] select-none"
                 >
-                  <div className="font-extrabold text-[#168a5c] uppercase">
-                    {item.lodged_by ? item.lodged_by : 'Unknown'}
+                  <div className="font-bold text-1xl text-black">
+                    {item.buyer_name === 'Cheezious_Islamabad' ? 'Cheezious ISL' : item.buyer_name}
                   </div>
                   <div className="text-black font-semibold text-sm">
                     {item.ticket_number}
-                  </div>
-                  <div className="font-bold text-1xl text-black">
-                    {item.buyer_name}
                   </div>
                   <div className="font-bold text-black text-sm">
                     {timeAgo}
