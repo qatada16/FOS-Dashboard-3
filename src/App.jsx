@@ -12,16 +12,6 @@ import TodayLaunches from './components/TodayLaunches';
 import SubmittedSince from './components/SubmittedSince';
 import { authService, dashboardService } from './api/complaints';
 
-// Dummy data for complaints
-const generateComplaints = (prefix) => {
-  const companies = ['Cheezious', 'Indus', 'Dawn', 'KFC', 'PizzaHut', 'McDonalds', 'BurgerKing', 'Subway'];
-  return Array.from({ length: 8 }).map((_, i) => ({
-    ticketNumber: `FOS-2025-${prefix}${String(i+1).padStart(2, '0')}`,
-    company: `${companies[i]}${i+1}`,
-    time: new Date(Date.now() - (i * 15 * 60 * 1000)).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-  }));
-};
-
 export default function App() {
   // State for dashboard data
   const [dashboardData, setDashboardData] = useState(null);
