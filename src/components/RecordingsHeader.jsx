@@ -43,47 +43,49 @@ const RecordingsHeader = ({
 
 
       {/* Duration Card */}
-<div className="flex-1 mt-1 pl-2 pr-1 pt-2 pb-1">
-  <h3 className="text-[#CBD5E1] text-2xl font-bold uppercase tracking-wider mb-1">DURATION</h3>
+      <div className="flex-1 mt-1 pl-3 pr-1 pt-2 pb-1">
+        <h3 className="text-[#CBD5E1] text-2xl font-bold uppercase tracking-wider mb-1">DURATION</h3>
 
-  <div className="flex justify-between items-start">
-    {/* Last Hour and Today side by side */}
-    <div className="flex items-end gap-3">
-      
-      {/* Last Hour */}
-      <div className="transition-all duration-300 group-hover:scale-115">
-        <div className="flex items-center gap-0">
-          <p className="text-white text-5xl font-bold">
-            {lastHourDuration.split('M')[0] + 'M'}
-          </p>
-          <p className="text-white text-3xl mt-2 font-bold">
-            {lastHourDuration.split('M')[1]}
-          </p>
+        <div className="flex justify-between items-start">
+          {/* Last Hour and Today side by side */}
+          <div className="flex items-end gap-2">
+            
+            {/* Last Hour */}
+            <div className="transition-all duration-300 group-hover:scale-115">
+              <div className="flex items-center gap-0">
+                <p className="text-white text-5xl font-bold">
+                  {lastHourDuration.split('M')[0] + 'M'}
+                </p>
+                {!todayDuration.includes('H') && (
+                  <p className="text-white text-3xl mt-2 font-bold">
+                    {lastHourDuration.split('M')[1]}
+                  </p>
+                )}
+              </div>
+              <p className="text-[#CBD5E1] text-sm mt-0 font-semibold">Last Hour</p>
+            </div>
+
+            {/* Today */}
+            <div className="pt-0 mt-0 items-center">
+              <div className="flex items-center gap-1">
+                <p className="text-[#F4A73C] text-3xl font-bold">
+                  {todayDuration.split('M')[0] + 'M'}
+                </p>
+                {!todayDuration.includes('H') && (
+                  <p className="text-[#F4A73C] text-2xl font-bold">
+                    {todayDuration.split('M')[1]}
+                  </p>
+                )}
+
+              </div>
+              <p className="text-[#CBD5E1] text-sm mt-0 pt-0 font-semibold">Today</p>
+            </div>
+
+          </div>
         </div>
-        <p className="text-[#CBD5E1] text-sm mt-0 font-semibold">Last Hour</p>
+
+        <div className="absolute top-0 left-[110%] w-1/2 h-full bg-white/15 skew-x-[20deg] pointer-events-none transition-all duration-700 group-hover:-translate-x-[350%]"></div>
       </div>
-
-      {/* Today */}
-      <div className="pt-0 mt-0 items-center">
-        <div className="flex items-center gap-1">
-          <p className="text-[#F4A73C] text-3xl font-bold">
-            {todayDuration.split('M')[0] + 'M'}
-          </p>
-          {!todayDuration.includes('H') && (
-            <p className="text-[#F4A73C] text-2xl font-bold">
-              {todayDuration.split('M')[1]}
-            </p>
-          )}
-
-        </div>
-        <p className="text-[#CBD5E1] text-sm mt-0 pt-0 font-semibold">Today</p>
-      </div>
-
-    </div>
-  </div>
-
-  <div className="absolute top-0 left-[110%] w-1/2 h-full bg-white/15 skew-x-[20deg] pointer-events-none transition-all duration-700 group-hover:-translate-x-[350%]"></div>
-</div>
 
     </div>
   );

@@ -133,13 +133,30 @@ export default function App() {
     return <div className="min-h-screen bg-teal-600 flex items-center justify-center">No data available</div>;
   }
 
-  // Get last 8 complaints for the "Last Hour" section
-  const lastSubmittedComplaints = dashboardData.complaints.last_submitted;
+  // Get last submitted complaints where buyer_name is not "ILO"
+  const lastSubmittedComplaints = dashboardData.complaints.last_submitted.filter(
+    complaint => complaint.buyer_name.toLowerCase() !== "ilo"
+  );
   console.log('Last Submitted Complaints:', lastSubmittedComplaints);
+  console.log('Total Last Submitted Complaints:', lastSubmittedComplaints.length);
+  
+  // Get Today submitted complaints where buyer_name is not "ILO"
+  const todaySubmittedComplaints = dashboardData.complaints.last_today_submitted.filter(
+    complaint => complaint.buyer_name.toLowerCase() !== "ilo"
+  );
 
-  // remove the Rejected complaints from the last_launched
-  const lastLaunched = dashboardData.complaints.last_launched.filter(item => item.status !== 'Rejected');
+  // Get today completed where buyer_name is not "ILO"
+  const todayCompletedComplaints = dashboardData.complaints.last_today_closed.filter(
+    complaint => complaint.buyer_name.toLowerCase() !== "ilo"
+  );
+
+  // remove the Rejected and ILO complaints from the last_launched
+  const lastLaunched = dashboardData.complaints.last_launched.filter(
+    item => item.status !== 'Rejected' &&
+            item.buyer_name.toLowerCase() !== "ilo"
+  );
   console.log('Last Launched Complaints:', lastLaunched);
+  
   // Get last hour launched complaints
   const lastHourLaunched = lastLaunched.filter(item => {
     const entryDate = new Date(item.date_entry);
@@ -155,6 +172,15 @@ export default function App() {
   .sort((a, b) => b.total_complaints - a.total_complaints)
   .slice(0, 5);
   console.log('Most Launches Last Week:', most5LaunchesLastWeek);
+  // Get top 5 buyers with most Closed complaints (excluding ILO)
+  const most5Closed = dashboardData.breakdown
+    .filter(buyer => buyer.buyer_name !== "ILO")
+    .map(buyer => ({
+      ...buyer,
+      closedCount: buyer.statuses.find(s => s.status === 'Closed')?.count || 0
+    }))
+    .sort((a, b) => b.closedCount - a.closedCount) // Sort descending by closed count
+    .slice(0, 5); // Take top 5
   
 
   return (
@@ -165,7 +191,9 @@ export default function App() {
       <div className="max-w-[2400px] mx-auto my-4 px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 select-none">
         {/* Submitted Complaints */}
         <SubmittedComplaints
-          dashboardData={dashboardData}
+          lastSubmittedComplaints={lastSubmittedComplaints}
+          todaySubmittedComplaints={todaySubmittedComplaints}
+          todayCompletedComplaints={todayCompletedComplaints}
         />
         {/* Today's Launches */}
         <TodayLaunches
@@ -175,7 +203,8 @@ export default function App() {
         />
         {/* Submitted Since */}
         <SubmittedSince lastSubmittedComplaints={lastSubmittedComplaints}
-          most5LaunchesLastWeek={most5LaunchesLastWeek}/>
+          most5LaunchesLastWeek={most5LaunchesLastWeek}
+          most5Closed={most5Closed}/>
       </div>
 
       {/* Lower Section - Recordings Dashboard */}

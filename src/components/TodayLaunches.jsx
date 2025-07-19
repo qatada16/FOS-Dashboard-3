@@ -69,7 +69,7 @@ const TodayLaunches = ({ lastLaunched, lastHourLaunched, most5LaunchesLastWeek }
                 }, {})
               ).map(([name, count], idx) => (
                 <div key={idx} className="flex items-center gap-1">
-                  <span className="text-white font-bold text-base uppercase mr-1 drop-shadow-lg">• {name}</span>
+                  <span className="text-white font-extrabold text-md uppercase mr-1 drop-shadow-lg">• {name}</span>
                   <span className="text-white font-semibold text-base drop-shadow-lg">➜ {count}</span>
                 </div>
               ))}

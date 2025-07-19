@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SubmittedComplaints = ({ dashboardData }) => {
+const SubmittedComplaints = ({ lastSubmittedComplaints, todaySubmittedComplaints, todayCompletedComplaints }) => {
   return (
     <div className="bg-[#c5e0db] rounded-xl p-2 shadow-lg flex flex-col items-center">
       <div className="flex gap-6 w-full justify-center">
@@ -18,7 +18,7 @@ const SubmittedComplaints = ({ dashboardData }) => {
             {/* Total */}
             <div className="text-center transition-all duration-300 group-hover:scale-110">
               <p className="text-white text-6xl font-extrabold leading-none drop-shadow-lg">
-                {dashboardData.metrics.total_submitted}
+                {lastSubmittedComplaints.length}
               </p>
               <p className="text-white/80 text-sm font-semibold mt-2 tracking-wide">TOTAL</p>
             </div>
@@ -29,7 +29,7 @@ const SubmittedComplaints = ({ dashboardData }) => {
             {/* Today */}
             <div className="text-center transition-all duration-300 group-hover:scale-110">
               <p className="text-[#eb9925] text-5xl font-extrabold leading-none drop-shadow-lg">
-                {dashboardData.metrics.today_submitted}
+                {todaySubmittedComplaints.length}
               </p>
               <p className="text-white/80 text-sm font-semibold mt-2 tracking-wide">TODAY</p>
             </div>
@@ -66,7 +66,7 @@ const SubmittedComplaints = ({ dashboardData }) => {
               {/* Left side: Count */}
               <div className="flex flex-col items-center transition-all duration-300 group-hover:scale-110">
                 <p className="text-white text-5xl font-extrabold leading-none drop-shadow-lg">
-                  {dashboardData.metrics.today_closed}
+                  {todayCompletedComplaints.length}
                 </p>
                 <p className="text-white/90 text-sm font-semibold mt-2 tracking-wide text-center">
                   TODAY
@@ -76,7 +76,7 @@ const SubmittedComplaints = ({ dashboardData }) => {
               {/* Right side: Closed By Stats */}
               <div className="flex flex-col justify-start space-y-1">
                 {Object.entries(
-                  dashboardData.complaints.last_today_closed.reduce((acc, item) => {
+                  todayCompletedComplaints.reduce((acc, item) => {
                     acc[item.closed_by] = (acc[item.closed_by] || 0) + 1;
                     return acc;
                   }, {})
@@ -95,7 +95,7 @@ const SubmittedComplaints = ({ dashboardData }) => {
           <div className="absolute top-0 left-0 w-full h-1/3 bg-gradient-to-r from-white/10 via-transparent to-white/10 blur-md pointer-events-none transition-all duration-700 group-hover:opacity-70"></div>
 
           {/* Decorative dots */}
-          <div className="absolute bottom-3 right-3 flex space-x-2">
+          <div className="absolute bottom-3 left-3 flex space-x-2">
             {[...Array(3)].map((_, i) => (
               <div
                 key={i}
@@ -110,8 +110,8 @@ const SubmittedComplaints = ({ dashboardData }) => {
 
       
       <div className="w-full flex flex-wrap justify-center gap-x-2 gap-y-2 mt-2">
-        {dashboardData.complaints.last_today_submitted.length > 0 ? (
-          dashboardData.complaints.last_today_submitted.map((complaint, i) => (
+        {todaySubmittedComplaints.length > 0 ? (
+          todaySubmittedComplaints.map((complaint, i) => (
             <div
               key={i}
               className="group min-w-[140px] max-w-[180px] pr-0.5 pl-2 rounded-lg border-3 border-[#0F676A]/50 bg-white/5 backdrop-blur-sm flex flex-col transition-all duration-300

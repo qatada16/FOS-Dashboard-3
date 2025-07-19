@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SubmittedSince = ({ lastSubmittedComplaints, most5LaunchesLastWeek }) => {
+const SubmittedSince = ({ lastSubmittedComplaints, most5LaunchesLastWeek, most5Closed }) => {
   return (
     <div className="bg-[#c5e0db] rounded-xl p-2 shadow-lg flex flex-col items-center">
       <div className="w-full mt-1 p-2 pt-1 bg-gradient-to-br from-[#61BA84] to-[#3A8D5C] rounded-xl shadow-[0_10px_20px_rgba(0,0,0,0.3)] transition-all duration-400 hover:-translate-y-2 hover:scale-[1.03] hover:shadow-[0_20px_40px_rgba(0,0,0,0.35)] relative overflow-hidden group">
@@ -11,7 +11,7 @@ const SubmittedSince = ({ lastSubmittedComplaints, most5LaunchesLastWeek }) => {
           </h3>
         </div>
         <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 w-full">
-          {most5LaunchesLastWeek.map((item, idx) => (
+          {most5Closed.map((item, idx) => (
             <div
               key={idx}
               className="flex items-center gap-1"
@@ -73,7 +73,7 @@ const SubmittedSince = ({ lastSubmittedComplaints, most5LaunchesLastWeek }) => {
                   <div className="text-black font-semibold text-sm">
                     {item.ticket_number}
                   </div>
-                  <div className="font-bold text-black text-sm">
+                  <div className="font-extrabold text-[#F97316] text-md">
                     {timeAgo}
                   </div>
                 </div>
