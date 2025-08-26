@@ -47,6 +47,6 @@ eslintcache/
 # System files
 Thumbs.db
 
-/src/api/complaints.js
+
 /apiTest.js
 
