@@ -15,6 +15,7 @@ export const fetchAllRecordings = async () => {
       fetch(`${API_BASE}/api/recordings/line05`)
     ]);
 
+    console.log('Responses:', responses);
     // Check if any response failed
     const errors = responses.filter(r => !r.ok);
     if (errors.length > 0) {
@@ -52,7 +53,7 @@ const processRecordings = (apiResponse) => {
   
   return apiResponse.calls.map(call => ({
     id: call.name,
-    time: new Date(call.lastModified).toLocaleTimeString(),
+    time: new Date(call.lastModified).toLocaleTimeString([], {hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true}),
     duration: call.duration,
     direction: call.direction
   }));

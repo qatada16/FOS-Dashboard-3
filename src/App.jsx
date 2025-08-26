@@ -51,11 +51,11 @@ export default function App() {
         if (!authService.getCurrentUser().token) {
           await authService.login("fos", "L56a<9dx");
         }
-        
+        console.log('User authenticated:', authService.getCurrentUser());
         // Fetch initial dashboard data
         const data = await dashboardService.fetchDashboardData();
         setDashboardData(data);
-        
+        console.log('Dashboard Data:', data);
         // Fetch initial recordings data
         await loadRecordingsData(false);
       } catch (err) {
@@ -89,6 +89,7 @@ export default function App() {
         line03: data2.line03,
         line05: data2.line05
       });
+      console.log('Last Hour Recordings: line01: ', data2.line01);
       setTotalHourDurations(data2.totalDurations);
     } catch (err) {
       if (!isRefresh) {
@@ -103,26 +104,50 @@ export default function App() {
     }
   };
 
-  // Set up silent refresh interval
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      loadRecordingsData(true); // Pass true to indicate it's a refresh
+  // // Set up silent refresh interval
+  // useEffect(() => {
+  //   const intervalId = setInterval(() => {
+  //     loadRecordingsData(true); // Pass true to indicate it's a refresh
       
-      // Optionally refresh dashboard data too
+  //     // Optionally refresh dashboard data too
+  //     dashboardService.fetchDashboardData()
+  //       .then(data => setDashboardData(data))
+  //       .catch(err => console.error('Dashboard refresh failed:', err));
+  //   }, 60000); // 60 seconds
+
+  //   return () => clearInterval(intervalId);
+  // }, []);
+
+  // Set up silent refresh intervals
+  useEffect(() => {
+    const RECORDINGS_REFRESH_INTERVAL = 60 * 1000; // 1 minute
+    const DASHBOARD_REFRESH_INTERVAL = 5 * 60 * 1000; // 10 minutes
+
+    // Refresh recordings every 1 minute
+    const recordingsIntervalId = setInterval(() => {
+      loadRecordingsData(true);
+    }, RECORDINGS_REFRESH_INTERVAL);
+
+    // Refresh dashboard every 10 minutes
+    const dashboardIntervalId = setInterval(() => {
       dashboardService.fetchDashboardData()
         .then(data => setDashboardData(data))
         .catch(err => console.error('Dashboard refresh failed:', err));
-    }, 60000); // 60 seconds
+    }, DASHBOARD_REFRESH_INTERVAL);
 
-    return () => clearInterval(intervalId);
+    return () => {
+      clearInterval(recordingsIntervalId);
+      clearInterval(dashboardIntervalId);
+    };
   }, []);
+
 
   // Combined loading state (only for initial load)
   const isLoading = dashboardLoading || (!dashboardLoading && recordingsLoading);
   const hasError = dashboardError || recordingsError;
 
   if (isLoading) {
-    return <div className="min-h-screen bg-teal-600 flex items-center justify-center">Loading data...</div>;
+    return <div className="min-h-screen bg-teal-600 flex items-center justify-center">Loading your veiny ahh data...</div>;
   }
 
   if (hasError) {
@@ -135,25 +160,25 @@ export default function App() {
 
   // Get last submitted complaints where buyer_name is not "ILO"
   const lastSubmittedComplaints = dashboardData.complaints.last_submitted.filter(
-    complaint => complaint.buyer_name.toLowerCase() !== "ilo"
+    complaint => complaint.buyer_name ? complaint.buyer_name.toLowerCase() !== "ilo" : complaint.buyer_name !== "ilo"
   );
   console.log('Last Submitted Complaints:', lastSubmittedComplaints);
   console.log('Total Last Submitted Complaints:', lastSubmittedComplaints.length);
   
   // Get Today submitted complaints where buyer_name is not "ILO"
   const todaySubmittedComplaints = dashboardData.complaints.last_today_submitted.filter(
-    complaint => complaint.buyer_name.toLowerCase() !== "ilo"
+    complaint => complaint.buyer_name ? complaint.buyer_name.toLowerCase() !== "ilo" : complaint.buyer_name !== "ilo"
   );
 
   // Get today completed where buyer_name is not "ILO"
   const todayCompletedComplaints = dashboardData.complaints.last_today_closed.filter(
-    complaint => complaint.buyer_name.toLowerCase() !== "ilo"
+    complaint => complaint.buyer_name ? complaint.buyer_name.toLowerCase() !== "ilo" : complaint.buyer_name !== "ilo"
   );
 
   // remove the Rejected and ILO complaints from the last_launched
   const lastLaunched = dashboardData.complaints.last_launched.filter(
     item => item.status !== 'Rejected' &&
-            item.buyer_name.toLowerCase() !== "ilo"
+      item.buyer_name ? item.buyer_name.toLowerCase() !== "ilo" : item.buyer_name !== "ilo"
   );
   console.log('Last Launched Complaints:', lastLaunched);
   
@@ -165,6 +190,16 @@ export default function App() {
     return entryDate >= oneHourAgo && entryDate <= now;
   });
   console.log('Last Hour Launched:', lastHourLaunched);
+
+  const lastCounseling = dashboardData.complaints.today_counseling_details.filter(
+    item => item.company_name.toLowerCase() !== "ilo"
+  );
+  console.log('Last Counseling Details:', lastCounseling);
+
+  const lastHourCounseling = dashboardData.complaints.last_hour_counseling_details.filter(
+    item => item.company_name.toLowerCase() !== "ilo"
+  );
+  console.log('Last Hour Counseling Details:', lastHourCounseling);
 
   // Get the most Launches in the Last Week
   const most5LaunchesLastWeek = dashboardData.breakdown
@@ -199,7 +234,9 @@ export default function App() {
         <TodayLaunches
           lastLaunched={lastLaunched}
           lastHourLaunched={lastHourLaunched}
-          most5LaunchesLastWeek={most5LaunchesLastWeek}
+          // most5LaunchesLastWeek={most5LaunchesLastWeek}
+          lastCounseling={lastCounseling}
+          lastHourCounseling={lastHourCounseling}
         />
         {/* Submitted Since */}
         <SubmittedSince lastSubmittedComplaints={lastSubmittedComplaints}

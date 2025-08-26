@@ -43,7 +43,7 @@ const RecordingsHeader = ({
 
 
       {/* Duration Card */}
-      <div className="flex-1 mt-1 pl-3 pr-1 pt-2 pb-1">
+      <div className="flex-1 mt-1 pl-3 pr-0 pt-2 pb-1">
         <h3 className="text-[#CBD5E1] text-2xl font-bold uppercase tracking-wider mb-1">DURATION</h3>
 
         <div className="flex justify-between items-start">

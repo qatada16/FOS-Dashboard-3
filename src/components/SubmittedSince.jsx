@@ -17,7 +17,9 @@ const SubmittedSince = ({ lastSubmittedComplaints, most5LaunchesLastWeek, most5C
               className="flex items-center gap-1"
             >
               <span className="text-white font-bold text-base uppercase drop-shadow-lg">• {item.buyer_name}</span>
-              <span className="text-white font-semibold text-base drop-shadow-lg">➜ {item.total_complaints}</span>
+              <span className="text-white font-semibold text-base drop-shadow-lg">
+                ➜ {item.total_complaints - (item.statuses.find(s => s.status === 'Rejected')?.count ? Number(item.statuses.find(s => s.status === 'Rejected').count) : 0)}
+              </span>
             </div>
           ))}
         </div>
@@ -64,7 +66,7 @@ const SubmittedSince = ({ lastSubmittedComplaints, most5LaunchesLastWeek, most5C
               return (
                 <div
                   key={i}
-                  className="group min-w-[140px] max-w-[180px] pr-0.5 pl-2 rounded-lg border-3 border-[#0F676A]/50 bg-white/5 backdrop-blur-sm flex flex-col transition-all duration-300
+                  className="group min-w-[140px] max-w-[180px] pr-0.5 pl-1 rounded-lg border-3 border-[#0F676A]/50 bg-white/5 backdrop-blur-sm flex flex-col transition-all duration-300
                   hover:border-[#49B16F] hover:shadow-lg hover:bg-[#284952]/20 hover:scale-[1.08] select-none"
                 >
                   <div className="font-bold text-1xl text-black">

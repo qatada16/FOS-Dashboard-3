@@ -1,46 +1,71 @@
 import React from 'react';
 
-const TodayLaunches = ({ lastLaunched, lastHourLaunched, most5LaunchesLastWeek }) => {
+const TodayLaunches = ({ lastLaunched, lastHourLaunched, lastCounseling, lastHourCounseling }) => {
   return (
     <>
       {/* Today's Launches */}
       <div className="bg-[#c5e0db] rounded-xl p-2 shadow-lg flex flex-col items-center">
         <div className='container flex gap-6'>
-          <div className="w-full mt-1 p-4 pt-1 bg-gradient-to-br from-[#61BA84] to-[#3A8D5C] rounded-xl shadow-[0_5px_12px_rgba(0,0,0,0.3)] transition-all duration-400 hover:-translate-y-2 hover:scale-[1.03] hover:shadow-[0_20px_40px_rgba(0,0,0,0.35)] relative overflow-hidden group">
+          <div className="w-full mt-1 p-2 pl-1 pt-1 bg-gradient-to-br from-[#61BA84] to-[#3A8D5C] rounded-xl shadow-[0_5px_12px_rgba(0,0,0,0.3)] transition-all duration-400 hover:-translate-y-2 hover:scale-[1.03] hover:shadow-[0_20px_40px_rgba(0,0,0,0.35)] relative overflow-hidden group">
             {/* Title */}
             <div className="flex items-center justify-center mb-0">
               <h3 className="text-white text-2xl font-extrabold uppercase tracking-widest drop-shadow-lg transition-all duration-300 group-hover:text-[#ffa742] text-center">
-                LAUNCHED
+                COMPLAINTS
               </h3>
             </div>
 
             {/* Stats Container */}
-            <div className="flex justify-around items-end mb-2 gap-6">
-              {/* Today */}
-              <div className="text-center transition-all duration-300 group-hover:scale-110">
-                <p className="text-white text-6xl font-extrabold leading-none drop-shadow-lg">
-                  {lastLaunched.length}
-                </p>
-                <p className="text-white/80 text-sm font-semibold mt-2 tracking-wide">TODAY</p>
-              </div>
-
-              {/* Divider */}
-              <div className="h-14 w-px bg-white/30 mx-4"></div>
-
+            <div className="flex justify-center items-center mb-2 gap-4">
               {/* Last Hour */}
-              <div className="text-center transition-all duration-300 group-hover:scale-110">
-                <p className="text-[#eb9925] text-5xl font-extrabold leading-none drop-shadow-lg">
+              <div className="text-center items-end transition-all duration-300 group-hover:scale-110">
+                <p className="text-white text-6xl font-extrabold leading-none drop-shadow-lg">
                   {lastHourLaunched.length}
                 </p>
-                <p className="text-white/80 text-sm font-semibold mt-2 tracking-wide">LAST HOUR</p>
+                <p className="text-white/80 text-xs font-semibold mt-2 tracking-wide whitespace-nowrap">LAST-HOUR</p>
               </div>
+              {lastLaunched.length<1 && (
+                <>
+                {/* Divider */}
+                <div className="h-14 w-px bg-white/30 mx-8"></div>
+                </>)}
+              {/* Today */}
+              <div className="flex flex-col items-center justify-end text-center transition-all duration-300 group-hover:scale-110 self-end">
+                <p className="text-[#eb9925] text-5xl font-extrabold leading-none drop-shadow-lg">
+                  {lastLaunched.length}
+                </p>
+                <p className="text-white/80 text-xs font-semibold mt-2 tracking-wide">
+                  TODAY
+                </p>
+              </div>
+              
+              {/* Stats Container */}
+              {lastLaunched.length > 0 && (
+                <>
+                {/* Divider */}
+                <div className="h-14 w-px bg-white/30 mx-0"></div>
+                <div className="flex flex-wrap items-center justify-center gap-x-16 gap-y-0 w-full">
+                  {Object.entries(
+                    lastLaunched.reduce((acc, item) => {
+                      const name = item.lodged_by === 'cs_account' ? 'CS' : item.lodged_by;
+                      acc[name] = (acc[name] || 0) + 1;
+                      return acc;
+                    }, {})
+                  ).map(([name, count], idx) => (
+                    <div key={idx} className="flex items-center gap-1">
+                      <span className="text-white font-extrabold text-md uppercase mr-1 drop-shadow-lg">• {name}</span>
+                      <span className="text-white font-semibold text-base drop-shadow-lg">➜ {count}</span>
+                    </div>
+                  ))}
+                </div>
+              </>
+              )}
             </div>
 
             {/* Shine effect */}
             <div className="absolute top-0 left-0 w-full h-1/3 bg-gradient-to-r from-white/10 via-transparent to-white/10 blur-md pointer-events-none transition-all duration-700 group-hover:opacity-70"></div>
 
             {/* Decorative dots with animation */}
-            <div className="absolute bottom-3 right-3 flex space-x-2">
+            <div className="absolute bottom-1 right-3 flex space-x-2">
               {[...Array(3)].map((_, i) => (
                 <div
                   key={i}
@@ -50,36 +75,66 @@ const TodayLaunches = ({ lastLaunched, lastHourLaunched, most5LaunchesLastWeek }
               ))}
             </div>
           </div>
-
-          <div className="w-full mt-1 p-2 pb-0 bg-gradient-to-br from-[#61BA84] to-[#3A8D5C] rounded-xl shadow-[0_10px_20px_rgba(0,0,0,0.3)] transition-all duration-400 hover:-translate-y-2 hover:scale-[1.03] hover:shadow-[0_20px_40px_rgba(0,0,0,0.35)] relative overflow-hidden group">
+        
+          <div className="w-full mt-1 p-2 pl-1 pt-1 items-center bg-gradient-to-br from-[#61BA84] to-[#3A8D5C] rounded-xl shadow-[0_5px_12px_rgba(0,0,0,0.3)] transition-all duration-400 hover:-translate-y-2 hover:scale-[1.03] hover:shadow-[0_20px_40px_rgba(0,0,0,0.35)] relative overflow-hidden group">
             {/* Title */}
-            <div className="flex items-center justify-center">
+            <div className="flex items-center justify-center mb-0">
               <h3 className="text-white text-2xl font-extrabold uppercase tracking-widest drop-shadow-lg transition-all duration-300 group-hover:text-[#ffa742] text-center">
-                Launched BY
+                COUNSELING
               </h3>
             </div>
 
             {/* Stats Container */}
-            <div className="flex flex-wrap items-center justify-center gap-x-16 gap-y-0 w-full">
-              {Object.entries(
-                lastLaunched.reduce((acc, item) => {
-                  const name = item.lodged_by;
-                  acc[name] = (acc[name] || 0) + 1;
-                  return acc;
-                }, {})
-              ).map(([name, count], idx) => (
-                <div key={idx} className="flex items-center gap-1">
-                  <span className="text-white font-extrabold text-md uppercase mr-1 drop-shadow-lg">• {name}</span>
-                  <span className="text-white font-semibold text-base drop-shadow-lg">➜ {count}</span>
-                </div>
-              ))}
+            <div className="flex justify-center items-center mb-2 gap-4">
+              {/* Last Hour */}
+              <div className="text-center items-end transition-all duration-300  mr-3 group-hover:scale-110">
+                <p className="text-white text-6xl font-extrabold leading-none drop-shadow-lg">
+                  {lastHourCounseling.length}
+                </p>
+                <p className="text-white/80 text-xs font-semibold mt-2 tracking-wide whitespace-nowrap">LAST-HOUR</p>
+              </div>
+              {lastCounseling.length<1 && (
+                <>
+                {/* Divider */}
+                <div className="h-14 w-px bg-white/30 mx-8"></div>
+                </>)}
+              {/* Today */}
+              <div className="flex flex-col items-center justify-end text-center transition-all duration-300 group-hover:scale-110 self-end">
+                <p className="text-[#eb9925] text-5xl font-extrabold leading-none drop-shadow-lg">
+                  {lastCounseling.length}
+                </p>
+                <p className="text-white/80 text-xs font-semibold mt-2 tracking-wide">TODAY</p>
+              </div>
+              
+
+              {/* Stats Container */}
+              {lastCounseling.length > 0 && (
+                <>
+                  {/* Divider */}
+                  <div className="h-14 w-px bg-white/30 mx-0"></div>
+                  <div className="flex flex-wrap items-center justify-center gap-x-16 gap-y-0 w-full">
+                    {Object.entries(
+                      lastCounseling.reduce((acc, item) => {
+                        const name = item.created_by === 'cs_account' ? 'CS' : item.created_by;
+                        acc[name] = (acc[name] || 0) + 1;
+                        return acc;
+                      }, {})
+                    ).map(([name, count], idx) => (
+                      <div key={idx} className="flex items-center gap-1">
+                        <span className="text-white font-extrabold text-md uppercase mr-1 drop-shadow-lg">• {name}</span>
+                        <span className="text-white font-semibold text-base drop-shadow-lg">➜ {count}</span>
+                      </div>
+                    ))}
+                  </div>
+                </>
+              )}
             </div>
 
             {/* Shine effect */}
             <div className="absolute top-0 left-0 w-full h-1/3 bg-gradient-to-r from-white/10 via-transparent to-white/10 blur-md pointer-events-none transition-all duration-700 group-hover:opacity-70"></div>
 
             {/* Decorative dots with animation */}
-            <div className="absolute bottom-3 right-3 flex space-x-2">
+            <div className="absolute bottom-1 right-3 flex space-x-2">
               {[...Array(3)].map((_, i) => (
                 <div
                   key={i}
@@ -89,6 +144,7 @@ const TodayLaunches = ({ lastLaunched, lastHourLaunched, most5LaunchesLastWeek }
               ))}
             </div>
           </div>
+          
         </div>
 
         <div className="w-full flex flex-wrap justify-center gap-x-2 gap-y-2 mt-2">
@@ -109,7 +165,7 @@ const TodayLaunches = ({ lastLaunched, lastHourLaunched, most5LaunchesLastWeek }
                   {complaint.buyer_name}
                 </div>
                 <div className="font-bold text-black text-sm">
-                  {new Date(complaint.date_entry).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                  {new Date(complaint.date_entry).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}
                 </div>
               </div>
             ))

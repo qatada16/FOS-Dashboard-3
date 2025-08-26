@@ -56,7 +56,16 @@ const RecordingsList = ({ recordings }) => {
             <div className="flex items-center justify-center gap-1 text-[#1E293B] font-semibold group-hover:text-[#0F676A]">
               <span className="text-lg">🕝</span>
               <span className="text-m font-semibold">
-                {recording.time.toString().padStart(11, '0')}
+                {recording.time.toString().padStart(11, '0').replace(
+                  /(\d{2}):(\d{2}):(\d{2})(?:\s*[AP]M)?/i, 
+                  (_, hh, mm, ss) => {
+                    const hours = parseInt(hh);
+                    const ampm = hours >= 12 ? 'PM' : 'AM';
+                    const hours12 = hours % 12 || 12;
+                    return `${hours12}:${mm}:${ss} ${ampm}`;
+                  }
+                )}
+                {/* {recording.time.toString().padStart(11, '0')} */}
               </span>
             </div>
           </div>

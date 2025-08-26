@@ -124,7 +124,7 @@ const SubmittedComplaints = ({ lastSubmittedComplaints, todaySubmittedComplaints
                 {complaint.ticket_number}
               </div>
               <div className="font-bold text-[#1f2021] text-sm">
-                {new Date(complaint.date_entry).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                {new Date(complaint.date_entry).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}
               </div>
             </div>
           ))
