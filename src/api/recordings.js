@@ -61,11 +61,11 @@ const processRecordings = (apiResponse) => {
 
 export const fetchLastHourRecordings = async () => {
   try {
-    // First verify the API is reachable
-    const testResponse = await fetch('/api/test-connection');
-    if (!testResponse.ok) {
-      throw new Error('Backend not reachable');
-    }
+    // // First verify the API is reachable
+    // const testResponse = await fetch('/api/test-connection');
+    // if (!testResponse.ok) {
+    //   throw new Error('Backend not reachable');
+    // }
 
     // Fetch last hour recordings for all lines
     const responses = await Promise.all([
