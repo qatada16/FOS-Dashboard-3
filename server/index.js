@@ -103,6 +103,9 @@ app.get('/api/recordings/:prefix', async (req, res) => {
   }
 });
 
+app.get('/', (req, res) => {
+  res.send("Welcome to the Fos Dash 3.");
+});
 // Add this endpoint to index.js (before the server start)
 app.get('/api/recordings/:prefix/last-hour', async (req, res) => {
   const { prefix } = req.params;
