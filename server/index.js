@@ -28,9 +28,15 @@ import {
   getLatest05Calls,
   getLastHourCalls
 } from './listCallRecords.js';
+import dotenv from "dotenv";
 
+dotenv.config();
 const app = express();
-app.use(cors());
+
+const corsOptions = {
+  origin: process.env.FRONTEND_URL,
+};
+app.use(cors(corsOptions));
 
 // API endpoint for call records
 app.get('/api/recordings/:prefix', async (req, res) => {
@@ -164,7 +170,7 @@ app.get('/api/recordings/:prefix/last-hour', async (req, res) => {
 });
 
 // Start server
-const PORT = 3001;
+const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
   console.log('Available endpoints:');

@@ -1,18 +1,18 @@
-const API_BASE = 'http://localhost:3001';
+const API_BASE = 'http://localhost:3000';
 
 export const fetchAllRecordings = async () => {
   try {
-    // First verify the API is reachable
-    const testResponse = await fetch('/api/test-connection');
-    if (!testResponse.ok) {
-      throw new Error('Backend not reachable');
-    }
+    // // First verify the API is reachable
+    // const testResponse = await fetch('/api/test-connection');
+    // if (!testResponse.ok) {
+    //   throw new Error('Backend not reachable');
+    // }
 
     // Fetch recordings for all lines
     const responses = await Promise.all([
-      fetch(`${API_BASE}/api/recordings/line01`),
-      fetch(`${API_BASE}/api/recordings/line03`),
-      fetch(`${API_BASE}/api/recordings/line05`)
+      fetch(`${import.meta.env.VITE_BACKEND_URL}/api/recordings/line01`),
+      fetch(`${import.meta.env.VITE_BACKEND_URL}/api/recordings/line03`),
+      fetch(`${import.meta.env.VITE_BACKEND_URL}/api/recordings/line05`)
     ]);
 
     console.log('Responses:', responses);
@@ -69,9 +69,9 @@ export const fetchLastHourRecordings = async () => {
 
     // Fetch last hour recordings for all lines
     const responses = await Promise.all([
-      fetch(`${API_BASE}/api/recordings/line01/last-hour`),
-      fetch(`${API_BASE}/api/recordings/line03/last-hour`),
-      fetch(`${API_BASE}/api/recordings/line05/last-hour`)
+      fetch(`${import.meta.env.VITE_BACKEND_URL}/api/recordings/line01/last-hour`),
+      fetch(`${import.meta.env.VITE_BACKEND_URL}/api/recordings/line03/last-hour`),
+      fetch(`${import.meta.env.VITE_BACKEND_URL}/api/recordings/line05/last-hour`)
     ]);
 
     // Check if any response failed
